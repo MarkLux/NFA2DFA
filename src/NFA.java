@@ -90,21 +90,40 @@ public class NFA {
         int i = 0;
         Map<Integer,Set<String>> marks = new HashMap<>();
         Set<Set<String>> cSet = new HashSet<>();
+        List<NodeDFA> dfaList = new ArrayList<>();
 
         // 创建第一个元素
 
         Set<String> element = getClosure(this.begin);
+
 
         cSet.add(element);
 
         // 添加并标记第一个集合
 
         while (!cSet.isEmpty()) {
-            // 检查当
-            for (String str:this.charList) {
-                Set<String> t = getClosure(getMove())
+            // 检查是否已经被标记
+            for (Set<String> c:cSet) {
+                if (!this.isSetInMap(c,marks)) {
+                    for (String str:this.charList) {
+                        Set<String> t = getClosure(getMove(c,str));
+                        if (!this.isSetInMap(t,marks)) {
+                            marks.put(++i,t);
+                            dfaList.add(new NodeDFA())
+                        }
+                    }
+                }
             }
         }
 
+    }
+
+    private boolean isSetInMap(Set<String> set,Map<Integer,Set<String>> map) {
+        for (Set<String> s:map.values()) {
+            if (set.equals(s)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

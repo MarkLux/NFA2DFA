@@ -35,4 +35,9 @@ public class NodeDFA {
     public void setNext(String next) {
         this.next = next;
     }
+
+    @Override
+    public String toString() {
+        return start + " =" + rec + "=> " + next;
+    }
 }

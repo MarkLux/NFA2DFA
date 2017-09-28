@@ -18,47 +18,6 @@ public class NFA {
         this.nfaNodes = nfaNodes;
     }
 
-
-    public Set<String> getK() {
-        return K;
-    }
-
-    public void setK(Set<String> k) {
-        K = k;
-    }
-
-    public Set<String> getBegin() {
-        return begin;
-    }
-
-    public void setBegin(Set<String> begin) {
-        this.begin = begin;
-    }
-
-    public Set<String> getEnd() {
-        return end;
-    }
-
-    public void setEnd(Set<String> end) {
-        this.end = end;
-    }
-
-    public Set<String> getCharList() {
-        return charList;
-    }
-
-    public void setCharList(Set<String> charList) {
-        this.charList = charList;
-    }
-
-    public List<NodeNFA> getNfaNodes() {
-        return nfaNodes;
-    }
-
-    public void setNfaNodes(List<NodeNFA> nfaNodes) {
-        this.nfaNodes = nfaNodes;
-    }
-
     public void print() {
         System.out.println("K = " + K.toString());
         System.out.println("S = " + begin.toString());
@@ -125,15 +84,20 @@ public class NFA {
 
         // 创建初始的闭包
         Set<String> next = this.getClosure(this.begin);
+
         Integer i = 0;
 
         queue.add(next);
+
+        begins.add("0");
 
         if (isSetEnds(next)) {
             ends.add(i.toString());
         }
 
         K.add(i.toString());
+
+        // 开始循环
 
         while (i < queue.size()) {
             System.out.println("loop " + i);
@@ -149,12 +113,10 @@ public class NFA {
                 Integer index = isSetInQueue(t, queue);
 
                 if (index == -1) {
-                    index = queue.size() - 1;
+                    index = queue.size();
                     K.add(index.toString());
                     if (isSetEnds(t)) {
                         ends.add(index.toString());
-                    } else {
-                        begins.add(index.toString());
                     }
                     queue.add(t);
                 }

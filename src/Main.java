@@ -4,6 +4,11 @@ import java.util.*;
  * Created by mark on 17/9/26.
  */
 public class Main {
+
+    /**
+     * 从键盘输入
+     */
+
 //    public static void main(String[] args) {
 //        Scanner sc = new Scanner(System.in);
 //        Set<String> begin = new HashSet<>();
@@ -55,9 +60,12 @@ public class Main {
 //        }
 //
 //        NFA nfa = new NFA(begin,end,charSets,nodeNFAs);
-//
-//        nfa.print();
 //    }
+
+    /**
+     * 书上的示范例子
+     * @param args
+     */
 
     public static void main(String args[]) {
         Set<String> K = new HashSet<>();
@@ -121,10 +129,13 @@ public class Main {
 
         NFA nfa = new NFA(K,begin,ends,charList,nodeNFAS);
 
+        System.out.println("NFA: ");
+
         nfa.print();
 
         DFA dfa = nfa.transToDFA();
 
         dfa.print();
+
     }
 }

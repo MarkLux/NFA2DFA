@@ -42,7 +42,7 @@ public class NFA {
 
         int i = 0;
 
-        while (i < array.size()) {
+            while (i < array.size()) {
             for (NodeNFA node : this.nfaNodes) {
                 if (node.getStart().equals(array.get(i)) && node.getRec().equals("ε")) {
                     array.add(node.getNext());
@@ -52,7 +52,7 @@ public class NFA {
             i++;
         }
 
-        System.out.println("closure of " + elements.toString() + " is: " + result.toString());
+//        System.out.println("closure of " + elements.toString() + " is: " + result.toString());
         return result;
     }
 
@@ -71,9 +71,6 @@ public class NFA {
     }
 
     public DFA transToDFA() {
-
-
-        System.out.println("Start Trans to DFA");
 
         Set<String> K = new HashSet<>(); // 所有状态集
         Set<String> begins = new HashSet<>(); // 起始状态集
@@ -100,9 +97,7 @@ public class NFA {
         // 开始循环
 
         while (i < queue.size()) {
-            System.out.println("loop " + i);
             for (String rec : this.charList) {
-                System.out.println("process rec: " + rec);
                 Set<String> t = this.getClosure(this.getMove(queue.get(i), rec));
                 if (t.size() == 0) {
                     continue;
@@ -121,10 +116,8 @@ public class NFA {
                     queue.add(t);
                 }
 
-                if (!isNodeInList(index.toString(), lines)) {
-                    // 添加边
-                    lines.add(new NodeDFA(i.toString(), rec, index.toString()));
-                }
+                // 添加边
+                lines.add(new NodeDFA(i.toString(), rec, index.toString()));
             }
             i++;
         }
@@ -147,15 +140,6 @@ public class NFA {
                 if (e.equals(str)) {
                     return true;
                 }
-            }
-        }
-        return false;
-    }
-
-    private boolean isNodeInList(String start, List<NodeDFA> list) {
-        for (NodeDFA node : list) {
-            if (start.equals(node.getStart())) {
-                return true;
             }
         }
         return false;
